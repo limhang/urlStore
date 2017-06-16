@@ -1,0 +1,13 @@
+*{padding: 0;margin: 0;}
+li{list-style: none;}
+.cloudShopping-cell {width: 49.5vw;height:calc(12vw + 25vw + 10px + 25px + 25px + 10px + 40px + 25px);background-color: #f7f7f7;border-bottom: 1px gray solid;border-right: 1px gray solid;position: relative;}
+.cloudShopping-cell .shoping-pic img{position: absolute;left: 25%;width: 25vw;top:12%;height: 25vw;}
+.cloudShopping-cell .shopping-name{position: absolute;left: 10px;top:calc(12% + 25vw + 10px); font-size: 14px;color: #1e1e1e; text-overflow: clip;height: 25px;}
+.cloudShopping-cell .shopping-price{position: absolute;left: 10px;top:calc(12% + 25vw + 10px + 25px); font-size: 12px; color: #999999;}
+.cloudShopping-cell .shopping-progress .range0{position: absolute;left:10px;top:calc(12% + 25vw + 10px + 25px + 25px);width: 80%; background-color: white;height: 6px;}
+.cloudShopping-cell .shopping-progress .range1{position: absolute;left:10px;top:calc(12% + 25vw + 10px + 25px + 25px);width: 60%; background-color: yellow;height: 6px;}
+.cloudShopping-cell .shopping-progress .join{position: absolute;left: 0;top: calc(12% + 25vw + 10px + 25px + 25px + 10px); width: calc(50vw * 0.33); padding-left: 10px;font-size: 12px;}
+.cloudShopping-cell .shopping-progress .left{position: absolute;left: 33%;top: calc(12% + 25vw + 10px + 25px + 25px + 10px);width: calc(50vw * 0.33); padding-left: 10px;font-size: 12px;}
+.cloudShopping-cell .shopping-progress .need{position: absolute;left: 66%;top: calc(12% + 25vw + 10px + 25px + 25px + 10px);width: calc(50vw * 0.33); padding-left: 10px;font-size: 12px;}
+.begin-shopping{background-color: black;color: yellow;font-size: 14px;text-align: center;width: calc(50vw * 0.90); height: 25px;line-height: 25px; border-radius: 5px;left: calc(50vw * 0.05);position: absolute;top: calc(12% + 25vw + 10px + 25px + 25px + 10px + 40px);}
+
