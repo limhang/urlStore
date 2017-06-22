@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Modal, Form, Input } from 'antd';
-import styles from './addurl.css';
+import styles from './editurl.css';
 
 const FormItem = Form.Item;
 
-class AddUrl extends Component {
+class EditUrl extends Component {
 
   constructor(props) {
     super(props);
@@ -41,8 +41,7 @@ class AddUrl extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    // const { url, detail, category, tag } = this.props.record;
-
+    const { url, detail, category, tag } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -54,7 +53,7 @@ class AddUrl extends Component {
           { children }
         </span>
         <Modal
-          title="Add Url"
+          title="Edit Url"
           visible={this.state.visible}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
@@ -66,6 +65,7 @@ class AddUrl extends Component {
             >
               {
                 getFieldDecorator('Url', {
+                  initialValue: url,
                 })(<Input />)
               }
             </FormItem>
@@ -75,6 +75,7 @@ class AddUrl extends Component {
             >
               {
                 getFieldDecorator('detail', {
+                  initialValue: detail,
                 })(<Input />)
               }
             </FormItem>
@@ -84,6 +85,7 @@ class AddUrl extends Component {
             >
               {
                 getFieldDecorator('category', {
+                  initialValue: category,
                 })(<Input />)
               }
             </FormItem>
@@ -93,6 +95,7 @@ class AddUrl extends Component {
             >
               {
                 getFieldDecorator('tag', {
+                  initialValue: tag,
                   })(<Input />)
               }
             </FormItem>
@@ -103,4 +106,4 @@ class AddUrl extends Component {
   }
 }
 
-export default Form.create()(AddUrl);
+export default Form.create()(EditUrl);

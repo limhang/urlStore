@@ -3,31 +3,43 @@ import { connect } from 'dva';
 import {Link} from 'dva/router';
 import { Table, Pagination, Popconfirm } from 'antd';
 import styles from './PostList.css';
+import EditUrl from './editurl';
 import AddUrl from './addurl';
+import { Button } from 'antd';
 
 function PostList({dispatch, list: dataSource, loading, total, page: current })  {
 
-  function deleteHandler(id) {
+  function deleteHandler(key) {
     console.log('用户点击视图');
     dispatch({
-      type: 'users/remove',
-      payload: id,
+      type: 'postlist/remove',
+      payload: {key},
     });
   }
 
 function pageChangeHandler(page) {
-    console.log('项目初始化');
-    dispatch(routerRedux.push({
-      pathname: '/users',
-      query: { page },
-    }));
+    console.log('uuuuuuu');
+    dispatch({
+      type: 'postlist/fetch',
+      payload: { page },
+    });
   }
 
-function editHandler(id, values) {
-  console.log('xxxx');
+  function addHandler(values) {
+      console.log(values);
+      dispatch({
+          type:'postlist/addUrl',
+          payload:values,
+      })
+  }
+
+function editHandler(key,values) {
+    console.log('2');
+    console.log(values);
+    console.log(key);
     dispatch({
-      type: 'postlist/patch',
-      payload: { id, values },
+      type: 'postlist/editUrl',
+      payload: { values ,key, current},
     });
   }
 
@@ -36,7 +48,7 @@ function editHandler(id, values) {
       title: 'Url',
       dataIndex: 'url',
       key: 'url',
-      render: text => <a href="http://www.baidu.com">{text}</a>,
+      render: (text,record) => <a href={record.url}>{text}</a>,
     },
     {
       title: 'Detail',
@@ -59,10 +71,10 @@ function editHandler(id, values) {
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>
-          <AddUrl record={record} onOk={editHandler.bind(null, record.id)}>
-             <a>Exit</a>
-           </AddUrl>
-           <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, record.id)}>
+          <EditUrl record={record} onOk={editHandler.bind(null,record.key)}>
+             <a>Edit</a>
+           </EditUrl>
+           <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, record.key)}>
             <a href="">Delete</a>
           </Popconfirm>
         </span>
@@ -72,18 +84,21 @@ function editHandler(id, values) {
 
   return (
     <div className={styles.normal}>
-      <div>
+    <AddUrl onOk={addHandler}>
+        <Button className={styles.addbtn} type="primary">AddUrl</Button>
+    </AddUrl>
+      <div className={styles.main}>
         <Table
           columns={columns}
           dataSource={dataSource}
           loading={loading}
-          rowKey={record => record.id}
+         //rowKey={record => record.id}
           pagination={false}
         />
         <Pagination
           className="ant-table-pagination"
           total={total}
-          current={current}
+          current={parseInt(current)}
           pageSize={3}
           onChange={pageChangeHandler}
         />

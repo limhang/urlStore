@@ -29,6 +29,7 @@ function Login({
 
   return (
     <div className={styles.container}>
+        <span className={styles.logo}>Welcome To UrlStore</span>
       <Form onSubmit={handleSubmit}>
         <Form.Item>
             {
@@ -39,7 +40,7 @@ function Login({
                             message: 'Please input your username!'
                         }
                     ]
-                })(<Input addonBefore={<Icon type="user"/>} placeholder="Username"/>)
+                })(<Input addonBefore={<Icon type="user"/>} placeholder="Username" />)
             }
         </Form.Item>
         <Form.Item>
@@ -51,10 +52,11 @@ function Login({
                             message: 'Please input your Password!'
                         }
                     ]
-                })(<Input addonBefore={<Icon type="lock"/>} type="password" placeholder="Password"/>)
+                })(<Input addonBefore={<Icon type="lock"/>} type="password" placeholder="Password" />)
             }
         </Form.Item>
         <Form.Item>
+
             {
                 getFieldDecorator('remember', {
                     valuePropName: 'checked',
