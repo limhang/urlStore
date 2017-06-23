@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import {Link} from 'dva/router';
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
+import {Form, Icon, Input, Button, Checkbox, Modal} from 'antd';
 import styles from './login.css';
 function Login({
   loading,
@@ -9,7 +9,9 @@ function Login({
   form:{
     getFieldDecorator,
     validateFields
-  }
+  },
+    showerror,
+    account,
 })  {
 
   function commit(data) {
@@ -25,6 +27,18 @@ function Login({
         commit(values);
       }
     });
+  }
+
+  function loginfn() {
+      if (showerror == true) {
+          showerror = false;
+          console.log(showerror);
+          const modal = Modal.success({
+              title: 'warning--message',
+              content: '账号密码错误，请重新输入',
+          });
+          setTimeout(() => modal.destroy(), 3000);
+      }
   }
 
   return (
@@ -56,7 +70,6 @@ function Login({
             }
         </Form.Item>
         <Form.Item>
-
             {
                 getFieldDecorator('remember', {
                     valuePropName: 'checked',
@@ -69,6 +82,7 @@ function Login({
                 htmlType="submit"
                 className={styles.button}
                 loading={loading}
+                onClick={loginfn}
             >
                 Log in
             </Button>
@@ -80,7 +94,10 @@ function Login({
 }
 
 export default connect((state, ownProps) => {
+    const {showerror, account} = state.app;
     return {
         loading: state.loading.models.app,
+        showerror,
+        account,
     };
 })(Form.create({})(Login));

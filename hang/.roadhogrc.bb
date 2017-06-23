@@ -16,13 +16,6 @@
   "extraBabelPlugins": [
     "transform-runtime",
     ["import", { "libraryName": "antd", "style": "css" }]
-  ],
-  "proxy": {
-    "/api": {
-      "target": "http://urlapi.coderhelper.cn/",
-      "changeOrigin": true,
-      "pathRewrite": { "^/api" : "" }
-    }
-  }
+  ]
   
 }
