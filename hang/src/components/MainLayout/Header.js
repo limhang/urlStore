@@ -12,8 +12,8 @@ function Header({ location }) {
       <Menu.Item key="/users">
         <Link to="/postlist"><Icon type="home" />Home</Link>
       </Menu.Item>
-      <Menu.Item key="/postadd">
-        <Link to="/postadd"><Icon type="file-add" />Add</Link>
+      <Menu.Item key="/category">
+        <Link to="/category"><Icon type="file-add" />Add</Link>
       </Menu.Item>
       <Menu.Item key="/search">
         <Link to="/search"><Icon type="search" />Search</Link>

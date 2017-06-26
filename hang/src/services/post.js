@@ -3,11 +3,11 @@ import { PAGE_SIZE } from '../constants';
 
 
 export function fetch(data ) {
-    var {token, page, pagenum} = data;
+    var {token, page, pagenum,item,kdcategory,kdtag,kddetail} = data;
     if (!page) { page = 1;}
     if (!pagenum) {pagenum = 3;}
     // if (page) {
-        return request(`/api/v1_0/url/user/urlquerypage?token=${token}&page=${page}&pagenum=${pagenum}`);
+        return request(`/api/v1_0/url/user/urlquery?token=${token}&page=${page}&pagenum=${pagenum}&item=${item}&category=${kdcategory}&tag=${kdtag}&detail=${kddetail}`);
 
     // } else {
     //     return request(`/v1_0/url/user/urlquerypage?token=${token}`);
@@ -31,4 +31,15 @@ export function remove(data) {
     const {token,key} = data;
     return request(`/api/v1_0/url/user/urldelete?token=${token}&key=${key}`);
 
+}
+
+
+export function category(data ) {
+    var {token} = data;
+    // if (page) {
+    return request(`/api/v1_0/url/user/urlquerycategory?token=${token}`);
+
+    // } else {
+    //     return request(`/v1_0/url/user/urlquerypage?token=${token}`);
+    // }
 }

@@ -10,13 +10,22 @@ function Login({
     getFieldDecorator,
     validateFields
   },
-    showerror,
     account,
 })  {
 
   function commit(data) {
     const {username, password} = data;
-    dispatch({type: 'app/auth',payload:{username, password}});
+    dispatch({
+        type: 'app/auth',
+        payload:{username, password},
+        callback(){
+            const modal = Modal.success({
+                title: 'warning--message',
+                content: '账号密码错误，请重新输入',
+            });
+            setTimeout(() => modal.destroy(), 3000);
+        },
+    });
     // dispatch({type: 'users/fetch',payload:{}});
   }
 
@@ -29,17 +38,6 @@ function Login({
     });
   }
 
-  function loginfn() {
-      if (showerror == true) {
-          showerror = false;
-          console.log(showerror);
-          const modal = Modal.success({
-              title: 'warning--message',
-              content: '账号密码错误，请重新输入',
-          });
-          setTimeout(() => modal.destroy(), 3000);
-      }
-  }
 
   return (
     <div className={styles.container}>
@@ -82,7 +80,6 @@ function Login({
                 htmlType="submit"
                 className={styles.button}
                 loading={loading}
-                onClick={loginfn}
             >
                 Log in
             </Button>
@@ -94,10 +91,9 @@ function Login({
 }
 
 export default connect((state, ownProps) => {
-    const {showerror, account} = state.app;
+    const {account} = state.app;
     return {
         loading: state.loading.models.app,
-        showerror,
         account,
     };
 })(Form.create({})(Login));

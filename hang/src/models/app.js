@@ -5,19 +5,18 @@ import {routerRedux} from 'dva/router';
 export default {
   namespace: 'app',
   state: {
-  	showerror: false,
   	account: null,
   },
   reducers: {
     authSuccess(state, { payload: username }) {
-      return { ...state, username, showerror:false };
+      return { ...state, username };
     },
       authfail(state, { payload: username }) {
-          return { ...state, username, showerror:true };
+          return { ...state, username};
       },
   },
   effects: {
-    *auth({payload}, { call, put }) {
+    *auth({payload,callback}, { call, put }) {
       console.log(payload);
       const {username, password} = payload;
       const {data} = yield call(usersService.auth,{username,password});
@@ -28,8 +27,10 @@ export default {
         yield put({type:'authSuccess',payload:username});
         yield put(routerRedux.push('/postlist'));
       } else {
-          yield put({type:'authfail',payload:null});
+          callback();
+          // yield put({type:'authfail',payload:null});
           console.log('something wrong');
+          // throw data;
       }
      },
 

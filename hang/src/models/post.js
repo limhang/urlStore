@@ -5,19 +5,27 @@ import {routerRedux} from 'dva/router';
 export default {
   namespace: 'postlist',
   state: {
+      item : null,
+      kdtag : null,
+      kdcategory : null,
+      kddetail : null,
     list : [],
     total : null,
-    page : null
+    page : null,
+      tag : [],
+      urlcategory : [],
   },
   reducers: {
-    save(state, { payload: {list,total,page}}) {
-      return { ...state, list, total, page};
+    save(state, { payload: {list,total,page,urlcategory,item,kdtag,kdcategory,kddetail}}) {
+        return { ...state, list, total, page,urlcategory,item,kdtag,kdcategory,kddetail};
     },
+
   },
   effects: {
     *fetch({payload}, { call, put }) {
       console.log('xxxxxxx');
       console.log(payload);
+      console.log(state);
       const token = window.localStorage.getItem(storageTokenKey);
       const res = {...payload,'token' : token};
       const data = yield call(usersService.fetch,res);
@@ -61,17 +69,52 @@ export default {
           const data = {...payload,'token':token};
           yield call(usersService.remove,data);
           yield put({type:'fetch',payload:null});
+      },
+
+      *category({payload},{call,put}){
+          const token = window.localStorage.getItem(storageTokenKey);
+          const res = {...payload,'token' : token};
+          console.log('test');
+          const data = yield call(usersService.category,res);
+          console.log('category---');
+          console.log(data);
+          if (data) {
+              const urlcategory = data['data']['datas']['category'];
+              console.log(urlcategory);
+              yield put({type:'save',payload:{urlcategory}});
+          } else {
+              console.log('something wrong');
+          }
+      },
+
+
+      *getIntoCategory({payload,callback},{call,put}) {
+          const token = window.localStorage.getItem(storageTokenKey);
+          const res = {...payload, 'token':token};
+          const data = yield call(usersService.fetch,res);
+          if (data) {
+              const list = data['data']['datas']['lists'];
+              const total = data['data']['datas']['total'];
+              const page = data['data']['datas']['page'];
+              const values = {...payload,list,total,page};
+              console.log(values);
+              yield put({type:'save',payload:values});
+              callback();
+          } else {
+              console.log('something wrong');
+          }
       }
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      console.log('post页面初始化');
       return history.listen(({ pathname, query }) => {
         if (pathname === '/users') {
           dispatch({ type: 'fetch', payload: query });
         } else if (pathname === '/postlist') {
           console.log('xxxxx');
           dispatch({type: 'fetch', payload: query});
+        } else if (pathname === '/category') {
+            dispatch({type: 'category', payload: query});
         }
       });
     },

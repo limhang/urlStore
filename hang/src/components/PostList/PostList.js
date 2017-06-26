@@ -7,7 +7,7 @@ import EditUrl from './editurl';
 import AddUrl from './addurl';
 import { Button } from 'antd';
 
-function PostList({dispatch, list: dataSource, loading, total, page: current })  {
+function PostList({dispatch, list: dataSource, loading, total, page: current,item,kdtag,kddetail,kdcategory })  {
 
   function deleteHandler(key) {
     console.log('用户点击视图');
@@ -18,10 +18,10 @@ function PostList({dispatch, list: dataSource, loading, total, page: current }) 
   }
 
 function pageChangeHandler(page) {
-    console.log('uuuuuuu');
+    console.log(item);
     dispatch({
       type: 'postlist/fetch',
-      payload: { page },
+      payload: { page,kddetail,kdtag,kdcategory,item },
     });
   }
 
@@ -108,12 +108,16 @@ function editHandler(key,values) {
 }
 
 function mapStateToProps(state) {
-  const { list, total, page } = state.postlist;
+  const { list, total, page,item,kdcategory,kddetail,kdtag } = state.postlist;
   return {
     loading: state.loading.models.postlist,
     list,
     total,
     page,
+      item,
+      kdcategory,
+      kddetail,
+      kdtag,
   };
 }
 

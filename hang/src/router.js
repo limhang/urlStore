@@ -5,6 +5,7 @@ import { Router, Route } from 'dva/router';
 import Login from './routes/Login';
 import PostList from './routes/PostList';
 import Register from './routes/Register';
+import Category from './routes/Category';
 
 function RouterConfig({ history }) {
   return (
@@ -13,6 +14,7 @@ function RouterConfig({ history }) {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/postlist" component={PostList} />
+        <Route path="/category" component={Category} />
     </Router>
   );
 }
