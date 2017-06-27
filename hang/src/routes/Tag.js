@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
-import styles from './Category.css';
+import styles from './Tag.css';
 import {Link} from 'dva/router';
-import { Tag } from 'antd';
 import { routerRedux } from 'dva/router';
 import MainLayout from '../components/MainLayout/MainLayout';
 
-function Category(
+function Tag(
     {
         urlcategory:datasource,
         dispatch,
@@ -18,11 +17,11 @@ function Category(
         console.log(text);
         dispatch({
             type: 'postlist/getIntoCategory',
-            payload : {kdcategory:text,item:1},
+            payload : {kdtag:text,item:2},
             callback(){
                 dispatch(routerRedux.push({
                     pathname : '/postlist',
-                    query: {kdcategory:text,item:1},
+                    query: {kdtag:text,item:2},
                 }))
             },
         })
@@ -31,7 +30,7 @@ function Category(
         <MainLayout location={location}>
             <div className={styles.normal}>
                 <div className={styles.main}>
-                    {(datasource) ? datasource.map(v => <span key={v.category} className={styles.tag} onClick={getCategoryData.bind(null,v.category)}>{v.category}</span>) : ''}
+                    {(datasource) ? datasource.map(v => <span key={v.tag} className={styles.tag} onClick={getCategoryData.bind(null,v.tag)}>{v.tag}</span>) : ''}
                 </div>
             </div>
         </MainLayout>
@@ -48,4 +47,4 @@ export default connect((state) => {
         loading: state.loading.models.postlist,
         urlcategory,
     };
-})(Category);
+})(Tag);

@@ -99,7 +99,7 @@ function editHandler(key,values) {
           className="ant-table-pagination"
           total={total}
           current={parseInt(current)}
-          pageSize={3}
+          pageSize={6}
           onChange={pageChangeHandler}
         />
       </div>
@@ -109,6 +109,7 @@ function editHandler(key,values) {
 
 function mapStateToProps(state) {
   const { list, total, page,item,kdcategory,kddetail,kdtag } = state.postlist;
+  console.log(state.postlist);
   return {
     loading: state.loading.models.postlist,
     list,

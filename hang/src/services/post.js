@@ -5,7 +5,7 @@ import { PAGE_SIZE } from '../constants';
 export function fetch(data ) {
     var {token, page, pagenum,item,kdcategory,kdtag,kddetail} = data;
     if (!page) { page = 1;}
-    if (!pagenum) {pagenum = 3;}
+    if (!pagenum) {pagenum = 6;}
     // if (page) {
         return request(`/api/v1_0/url/user/urlquery?token=${token}&page=${page}&pagenum=${pagenum}&item=${item}&category=${kdcategory}&tag=${kdtag}&detail=${kddetail}`);
 
@@ -35,11 +35,11 @@ export function remove(data) {
 
 
 export function category(data ) {
-    var {token} = data;
-    // if (page) {
+    const {token} = data;
     return request(`/api/v1_0/url/user/urlquerycategory?token=${token}`);
+}
 
-    // } else {
-    //     return request(`/v1_0/url/user/urlquerypage?token=${token}`);
-    // }
+export function tag(data ) {
+    const {token} = data;
+    return request(`/api/v1_0/url/user/urlquerytag?token=${token}`);
 }
