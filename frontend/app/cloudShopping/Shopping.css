@@ -1,0 +1,21 @@
+.empty-header {height: 60px;}
+.empty-footer{height:87px;}
+.flex-container {
+    /* We first create a flex layout context */
+    display: flex;
+    /* Then we define the flow direction and if we allow the items to wrap
+    * Remember this is the same as:
+    * flex-direction: row;
+    * flex-wrap: wrap;
+    */
+    flex-flow: row wrap;
+    /* Then we define how is distributed the remaining space */
+    justify-content: flex-start;
+}
+.flex-item {
+    background: #ffffff;
+    /*padding: 5px;*/
+    width:25vw;
+    height: 28vw;
+    text-align: center;
+}
