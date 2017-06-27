@@ -2,6 +2,8 @@ import * as usersService from '../services/post';
 import storageTokenKey from '../constants.js';
 import {routerRedux} from 'dva/router';
 
+let getState = (state) => state.postlist;
+
 export default {
   namespace: 'postlist',
   state: {
@@ -26,15 +28,22 @@ export default {
 
   },
   effects: {
-    *fetch({payload}, { call, put }) {
-        if(!payload['item']) {
-            yield put({type:'save',payload:payload});
-        } else {
-            yield put({type:'save',payload:payload});
-        }
-      const token = window.localStorage.getItem(storageTokenKey);
-      const res = {...payload,'token' : token};
-      const data = yield call(usersService.fetch,res);
+    *fetch({payload}, { call, put, select}) {
+        // if(!payload['item']) {
+        //     yield put({type:'save',payload:payload});
+        // } else {
+        //     yield put({type:'save',payload:payload});
+        // }
+    yield put({type:'save',payload:payload});
+    let project = yield select(getState); // <-- get the postlist
+
+    const token = window.localStorage.getItem(storageTokenKey);
+      const res = {...project,...payload,'token' : token};
+    console.log(project);
+    console.log(payload);
+    console.log(res);
+
+    const data = yield call(usersService.fetch,res);
       if (data) {
         const list = data['data']['datas']['lists'];
         const total = data['data']['datas']['total'];
@@ -61,7 +70,7 @@ export default {
         const data = {Url,tag,detail,category,'token':token, 'key':key};
         // if (url) {
           yield call(usersService.editUrl,{data});
-          yield put({type:'fetch',payload:{page:current}});
+          yield put({type:'fetch',payload:null});
 
       },
 
